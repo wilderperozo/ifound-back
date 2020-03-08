@@ -15,10 +15,15 @@ class AuthRoute{
 
     routes(){
         this.auth();
+        this.validateEmail();
     };
 
     auth(){
         this.router.post('/', this.controller.auth)
+    }
+
+    validateEmail(){
+        this.router.post('/validate', this.controller.validate)
     }
 }
 

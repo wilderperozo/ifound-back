@@ -20,4 +20,15 @@ export class AuthController {
         }
     }
 
+    async validate(req: Request, res: Response){
+        const user = (await UserModel.findOne({email: req.body})).toJSON();
+        delete user.password;
+        if(user)
+            return res.status(200).json(user);
+        else
+            return res.status(404).json({
+                message: 'User not found'
+            });
+    }
+
 }
