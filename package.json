@@ -7,14 +7,17 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "nodemon .",
+    "start": "node .",
+    "start:watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wilder Perozo",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.6",
     "@types/crypto-js": "^3.1.43",
     "@types/mongoose": "^5.7.1",
+    "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.2"

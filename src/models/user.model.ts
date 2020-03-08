@@ -7,7 +7,8 @@ export interface IUser extends Document {
     lastName: string;
     email: string;
     password: string;
-    toHash: any
+    toHash: any;
+    validatePassword: any;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -29,5 +30,9 @@ const UserSchema = new Schema<IUser>({
 UserSchema.methods.toHash = ((password: string, callback: any) => {
     callback(crypto.SHA256(password, process.env.MY_HASH).toString())
 })
+
+UserSchema.methods.validatePassword = function (password: string, callback: any) {
+        callback(this.password === crypto.SHA256(password, process.env.MY_HASH).toString())
+    };
 
 export default mongoose.model<IUser>('User', UserSchema);

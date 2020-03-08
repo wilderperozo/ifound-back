@@ -2,19 +2,16 @@ import express from "express";
 import {UserController} from '../controllers/user.controller';
 
 class UserRoute {
-    public express: any;
-    public route: any;
+    public router: any;
     public controller = new UserController();
 
     constructor() {
-        this.express = express;
-        this.route = this.express.Router();
+        this.router = express.Router();
         this.add();
     }
 
     public add() {
-        this.route.post('/', this.controller.add);
-        console.log('llego aqui?')
+        this.router.post('/', this.controller.add);
     }
 
     public edit() {
@@ -26,4 +23,4 @@ class UserRoute {
     }
 }
 
-export default new UserRoute().route;
+export default new UserRoute().router;
