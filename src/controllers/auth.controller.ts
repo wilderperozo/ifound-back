@@ -3,15 +3,15 @@ import UserModel from '../models/user.model';
 
 
 export class AuthController {
-    async auth(req: Request, res: Response){
+    async auth(req: Request, res: Response) {
         const user = (await UserModel.findOne({email: req.body.email}))
-        if(user){
-            user.validatePassword(req.body.password, (isValid: boolean) =>{
-                if(isValid){
+        if (user) {
+            user.validatePassword(req.body.password, (isValid: boolean) => {
+                if (isValid) {
                     const userJson = user.toJSON();
                     delete userJson.password;
                     return res.json(userJson);
-                }else{
+                } else {
                     return res.status(404).json({
                         message: 'User not found'
                     })
@@ -20,12 +20,13 @@ export class AuthController {
         }
     }
 
-    async validate(req: Request, res: Response){
-        const user = (await UserModel.findOne({email: req.body})).toJSON();
-        delete user.password;
-        if(user)
+    async validate(req: Request, res: Response) {
+        let user = (await UserModel.findOne({email: req.body.email}));
+        if (user) {
+            user = user.toJSON();
+            delete user.password;
             return res.status(200).json(user);
-        else
+        } else
             return res.status(404).json({
                 message: 'User not found'
             });
